@@ -1,0 +1,36 @@
+---
+// src/pages/posts/index.astro
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts', ({ data }) => {
+  // Sort posts by date, newest first
+  return data.pubDate > data.pubDate;
+});
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>All Posts</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 2rem auto; }
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 1rem; }
+        a { text-decoration: none; font-size: 1.2rem; }
+        span { color: #666; display: block; }
+    </style>
+</head>
+<body>
+    <a href="/">&larr; Back to Home</a>
+    <h1>All Posts</h1>
+    <ul>
+        {allPosts.map(post => (
+            <li>
+                <a href={`/posts/${post.slug}/`}>{post.data.title}</a>
+                <span>Published on: {post.data.pubDate.toLocaleDateString()}</span>
+            </li>
+        ))}
+    </ul>
+</body>
+</html>
