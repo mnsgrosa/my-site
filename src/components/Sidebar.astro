@@ -29,7 +29,7 @@ const posts = await getCollection('posts');
     </ul>
     <style>
         aside {
-            background: var(--ctp-mantle);
+            background: #201935;
             padding: 2rem;
             border-right: 1px solid var(--ctp-surface1);
             min-height: 100vh;
@@ -48,17 +48,13 @@ const posts = await getCollection('posts');
             justify-content: center;
             width: 72px;
             height: 72px;
-            border-radius: 16px;
-            background: var(--ctp-mantle);
-            border: 1px solid rgba(186, 194, 222, 0.12);
-            box-shadow: inset 0 0 0 1px rgba(203, 166, 247, 0.06);
+            /* blended look */
+            opacity: 0.9;
+            transition: opacity 0.2s ease;
         }
 
         .logo:hover {
-            border-color: rgba(203, 166, 247, 0.35);
-            box-shadow:
-                inset 0 0 0 1px rgba(203, 166, 247, 0.12),
-                0 0 0 4px rgba(203, 166, 247, 0.10);
+            opacity: 1;
         }
 
         .logo img {

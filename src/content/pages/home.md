@@ -13,8 +13,8 @@ This is the homepage of my portfolio. Here I will list my skills, experience and
 
 ## My Experience
 
-### Software Engineer at Tech Corp
-*2020 - Present*
+### AI engineer at Triggo AI
+*Jan.2026 - Present*
 
 ## My Projects
 
