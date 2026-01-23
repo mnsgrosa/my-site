@@ -3,6 +3,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://mnsgrosa.github.io",
+  repo: "https://mnsgrosa.github.io",
+  base: "/my-repo",
   integrations: [react()],
 });
