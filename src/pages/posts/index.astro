@@ -1,35 +1,70 @@
 ---
 // src/pages/posts/index.astro
 import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
 
 const allPosts = (await getCollection('posts')).sort((a, b) => {
   return b.data.pubDate.getTime() - a.data.pubDate.getTime();
 });
 ---
 
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>All Posts</title>
-    <style>
-        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 2rem auto; }
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 1rem; }
-        a { text-decoration: none; font-size: 1.2rem; }
-        span { color: #666; display: block; }
-    </style>
-</head>
-<body>
-    <a href="/">&larr; Back to Home</a>
+<MainLayout title="All Posts">
     <h1>All Posts</h1>
-    <ul>
+    <div class="posts-grid">
         {allPosts.map(post => (
-            <li>
-                <a href={`/posts/${post.slug}/`}>{post.data.title}</a>
-                <span>Published on: {post.data.pubDate.toLocaleDateString()}</span>
-            </li>
+            <a href={`/posts/${post.slug}/`} class="post-card">
+                <article>
+                    <h2>{post.data.title}</h2>
+                    <time datetime={post.data.pubDate.toISOString()}>
+                        {post.data.pubDate.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}
+                    </time>
+                    <p>{post.data.description}</p>
+                </article>
+            </a>
         ))}
-    </ul>
-</body>
-</html>
+    </div>
+</MainLayout>
+
+<style>
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .post-card {
+        background-color: var(--ctp-surface0);
+        border: 1px solid var(--ctp-surface1);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-decoration: none;
+        transition: transform 0.2s, background-color 0.2s;
+        display: block;
+    }
+
+    .post-card:hover {
+        transform: translateY(-4px);
+        background-color: var(--ctp-surface1);
+    }
+
+    .post-card h2 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.5rem;
+        color: var(--ctp-mauve);
+    }
+
+    .post-card time {
+        font-size: 0.9rem;
+        color: var(--ctp-subtext0);
+    }
+
+    .post-card p {
+        color: var(--ctp-text);
+        margin-top: 1rem;
+        line-height: 1.5;
+    }
+</style>
